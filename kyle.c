@@ -363,7 +363,7 @@ int run_custom_ors(const char* ors_script) {
 	return ret_val;
 }
 
-void show_bootanimation_menu(const char *ba_path)
+void choose_bootanimation_menu(const char *ba_path)
 {
     if (ensure_path_mounted(ba_path) != 0) {
         LOGE("Can't mount %s\n", ba_path);
@@ -389,6 +389,27 @@ void show_bootanimation_menu(const char *ba_path)
     }
 }
 
+void show_bootanimation_menu() {
+    static char* headers[] = {  "Bootanimation Menu",
+                                "",
+                                NULL
+    };
+
+    char* list[] = { "choose bootanimation from internal sdcard",
+        "choose bootanimation from external sdcard",
+        NULL
+    };
+
+    int chosen_item = get_menu_selection(headers, list, 0, 0);
+    switch (chosen_item) {
+        case 0:
+                choose_bootanimation_menu("/emmc/");
+                break;
+        case 1:
+                choose_bootanimation_menu("/sdcard/");
+                break;
+    }
+}
 
 void show_custom_ors_menu(const char* ors_path)
 {
@@ -420,7 +441,7 @@ void show_extras_menu()
                                 NULL
     };
 
-    static char* list[] = { "Change bootanimation",
+    static char* list[] = { "change bootanimation",
                             "enable/disable one confirm",
                             "hide/show backup & restore progress",
 			    "set android_secure internal/external",
@@ -441,7 +462,7 @@ void show_extras_menu()
         switch (chosen_item)
         {
             case 0:
-		show_bootanimation_menu("/emmc/");
+		show_bootanimation_menu();
 		break;
 	    case 1:
 		ensure_path_mounted("/emmc");
@@ -515,9 +536,9 @@ void show_extras_menu()
 		show_custom_ors_menu("/emmc");
 		break;
 	    case 9:
-		ui_print("ClockworkMod Recovery 6.0.1.5 Touch v14\n");
+		ui_print("ClockworkMod Recovery 6.0.1.5 Touch v14.1\n");
 		ui_print("Created By: sk8erwitskil (Kyle Laplante)\n");
-		ui_print("Build Date: 10/15/2012 4:45 pm\n");
+		ui_print("Build Date: 10/29/2012 10:00 pm\n");
 	}
     }
 }
