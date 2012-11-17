@@ -1201,6 +1201,21 @@ main(int argc, char **argv) {
         } else {
             LOGI("Skipping execution of extendedcommand, file not found...\n");
         }
+        if (0 == check_for_script_file()) {
+	    LOGI("Running openrecoveryscript....\n");
+	    ensure_path_mounted("/emmc");
+            __system("ors-mount.sh");
+	    int ret;
+            if (0 == (ret = run_script_file())) {
+	        status = INSTALL_SUCCESS;
+		ui_set_show_text(0);
+	    }
+	    else {
+		handle_failure(ret);
+	    }
+        } else {
+            LOGI("/cache/recovery/openrecoveryscript not found.\n");
+        }
     }
 
     if (status != INSTALL_SUCCESS && !is_user_initiated_recovery) {
