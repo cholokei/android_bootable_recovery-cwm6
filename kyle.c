@@ -536,9 +536,9 @@ void show_extras_menu()
 		show_custom_ors_menu("/emmc");
 		break;
 	    case 9:
-		ui_print("ClockworkMod Recovery 6.0.1.5 Touch v14.1\n");
+		ui_print("ClockworkMod Recovery 6.0.1.5 Touch v14.2\n");
 		ui_print("Created By: sk8erwitskil (Kyle Laplante)\n");
-		ui_print("Build Date: 10/29/2012 10:00 pm\n");
+		ui_print("Build Date: 11/16/2012 5:09 pm\n");
 	}
     }
 }

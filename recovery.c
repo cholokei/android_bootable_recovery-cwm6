@@ -674,6 +674,36 @@ void wipe_data(int confirm) {
 	erase_volume("/emmc/.android_secure");
     }
     ui_print("Data wipe complete.\n");
+    ensure_path_mounted("/data");
+    ensure_path_mounted("/emmc");
+    ensure_path_mounted("/sdcard");
+    struct stat st;
+    if (0 == lstat("/emmc/0", &st)) {
+        char* layout_version = "2";
+        FILE* f = fopen("/data/.layout_version", "wb");
+        if (NULL != f) {
+            fwrite(layout_version, 1, 2, f);
+            fclose(f);
+        }
+        else {
+            LOGI("error opening /data/.layout_version for write.\n");
+        }
+    }
+    else if (0 == lstat("/sdcard/0", &st)) {
+        char* layout_version = "2";
+        FILE* f = fopen("/data/.layout_version", "wb");
+        if (NULL != f) {
+            fwrite(layout_version, 1, 2, f);
+            fclose(f);
+        }
+        else {
+            LOGI("error opening /data/.layout_version for write.\n");
+        }
+    }
+    else {
+        LOGI("/emmc/0,/sdcard/0 not found. migration may occur in Android 4.2.\n");
+    }
+    ensure_path_unmounted("/data");
 }
 
 // open recovery script code
