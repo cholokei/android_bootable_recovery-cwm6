@@ -495,6 +495,7 @@ void show_extras_menu()
                 }
                 break;
 	    case 4:
+		ensure_path_mounted("/sdcard");
 		ensure_path_mounted("/emmc");
 		if( access( "/emmc/clockworkmod/.aromafm/aromafm.zip", F_OK ) != -1) {
                 install_zip("/emmc/clockworkmod/.aromafm/aromafm.zip");
