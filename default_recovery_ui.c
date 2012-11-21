@@ -30,7 +30,6 @@ char* MENU_ITEMS[] = { "reboot system now",
                        "mounts and storage",
                        "advanced",
 		       "extras",
-		       "run openrecoveryscript",
 		       "power off",
                        NULL };
 

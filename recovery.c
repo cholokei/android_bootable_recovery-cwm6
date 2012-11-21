@@ -1023,19 +1023,6 @@ prompt_and_wait() {
 		show_extras_menu();
 		break;
 
-	    case ITEM_ORS:
-		__system("ors-mount.sh");
-		if (0 == check_for_script_file()) {
-		    if (0 != run_script_file())
-		    break;
-		} else {
-		    ui_print("/cache/recovery/openrecoveryscript not found.\n");
-		    break;
-		}
-		usleep(2000000);
-		poweroff=0;
-		return;
-
             case ITEM_POWEROFF:
                 poweroff = 1;
                 return;
