@@ -261,7 +261,9 @@ int run_custom_ors(const char* ors_script) {
 
 				ui_print("Backup options are ignored in CWMR: '%s'\n", value1);
 				nandroid_backup(backup_path);
-				ui_print("Backup complete!\n");
+				//avoid backups reported twice successful or reported successful if failed
+				if (0 != nandroid_backup(backup_path))
+				ui_print("Backup failed !!\n");
 			} else if (strcmp(command, "restore") == 0) {
 				// Restore
 				tok = strtok(value, " ");
